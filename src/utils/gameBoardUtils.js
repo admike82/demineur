@@ -1,4 +1,3 @@
-
 export const dataGameBoard = (level) => {
   let grid = [];
   for (let i = 1; i <= level.lines; i++) {
@@ -31,11 +30,21 @@ export const dataGameBoard = (level) => {
   return grid;
 };
 
-export const generateBombs = (level, grid, start)=> {
+export const generateBombs = (level, grid, start) => {
+  // Generate safe zone around starting position (3x3 grid)
+  const temp = [];
+  for (let dy = -1; dy <= 1; dy++) {
+    for (let dx = -1; dx <= 1; dx++) {
+      temp.push({ x: start.x + dx, y: start.y + dy });
+    }
+  }
   for (let i = 1; i <= level.bombs; i++) {
     let x = Math.floor(Math.random() * (level.columns - 1) + 1);
     let y = Math.floor(Math.random() * (level.lines - 1) + 1);
-    while (grid[y][x] === -1 || (x === start.x && y === start.y)) {
+    while (
+      grid[y][x] === -1 ||
+      temp.find((cell) => cell.x === x && cell.y === y)
+    ) {
       x = Math.floor(Math.random() * (level.columns - 1) + 1);
       y = Math.floor(Math.random() * (level.lines - 1) + 1);
     }
@@ -52,5 +61,5 @@ export const generateBombs = (level, grid, start)=> {
     }
   }
 
-  return grid
-}
+  return grid;
+};
