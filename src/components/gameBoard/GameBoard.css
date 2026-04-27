@@ -14,7 +14,8 @@ table {
   box-shadow: 0 0 30px lightgreen;
 }
 
-.front, .back {
+.front,
+.back {
   -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
 }
@@ -46,7 +47,7 @@ td {
 }
 
 td {
-  width: 2rem;
+  min-width: 2rem;
   height: 2rem;
   background-color: grey;
 }

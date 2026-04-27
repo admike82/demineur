@@ -22,12 +22,11 @@ const GameBoard = ({ level }) => {
   const [clean, setClean] = useState([]);
   const [bomb, setBomb] = useState(null);
 
-  useEffect(() => {
-    if (bomb || clean.length + level.bombs === level.columns * level.lines) {
+  if (bomb || clean.length + level.bombs === level.columns * level.lines) {
+    if (!end) {
       setEnd(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bomb, clean]);
+  }
 
   useEffect(() => {
     let interval = null;

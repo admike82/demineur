@@ -2,12 +2,11 @@ import "./LevelChoice.css";
 import { _LEVELS } from "../../config.js";
 
 /**
- * 
- * @param {Function} setLevel 
+ *
+ * @param {Function} setLevel
  * @returns
  */
 const LevelChoice = ({ setLevel }) => {
-
   const handleClick = (level) => {
     setLevel(level);
   };
@@ -19,7 +18,7 @@ const LevelChoice = ({ setLevel }) => {
         {_LEVELS.map((level) => (
           <div
             className="card"
-            onClick={() => handleClick(level)}
+            onClick={() => handleClick({ ...level, key: new Date() })}
             key={level.name}
           >
             {level.name}
