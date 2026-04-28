@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import GameBoard from "./components/gameBoard/GameBoard";
 import LevelChoice from "./components/levelChoice/LevelChoice";
-import { login, logout, postData } from "./firebase";
+import { login, logout } from "./firebase";
 
 // Initialize Firebase
 
@@ -62,14 +62,14 @@ function App() {
       ) : (
         <LevelChoice setLevel={setLevel} />
       )}
-      <button
+      {/* <button
         onClick={() =>
           postData({ name: "test", score: 10, level: "facile" }, setScores)
         }
         className="reset"
       >
         Post
-      </button>
+      </button> */}
     </>
   );
 }
