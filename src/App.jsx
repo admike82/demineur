@@ -1,76 +1,68 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import GameBoard from "./components/gameBoard/GameBoard";
 import LevelChoice from "./components/levelChoice/LevelChoice";
-import { login, logout } from "./firebase";
-
-// Initialize Firebase
+import { login, logout } from "./utils/firebase";
+import { StorageService } from "./utils/StorageService";
+import GameComponent from "./components/gameComponent/GameComponent";
+import AppContext from "./contexts/AppContext";
+import TopScores from "./components/topScores/TopScores";
 
 function App() {
   const [level, setLevel] = useState(null);
   const [resetKey, setResetKey] = useState(0);
   const [scores, setScores] = useState([]);
-  console.log("🚀 ~ App ~ scores:", scores);
+  const [name, setName] = useState(StorageService.getItem("name") || null);
 
   useEffect(() => {
     login(setScores);
 
     () => logout();
   }, []);
-  const handleClick = () => {
-    setLevel(null);
-    setResetKey(0);
+
+  const contextValue = {
+    scores,
+    setScores,
+    level,
+    setLevel,
+    resetKey,
+    setResetKey,
   };
 
-  const handleReset = () => {
-    setResetKey((k) => k + 1);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    let nameInput = document.getElementById("name");
+    StorageService.setItem("name", nameInput.value);
+    setName(nameInput.value);
   };
-
-  // async function getScores() {
-  //   const auth = getAuth(app);
-  //   signInAnonymously(auth)
-  //     .then(() => {
-  //       // Signed in..
-  //       console.log("🚀 ~ getScores ~ Signed in..:", "Signed in..");
-  //     })
-  //     .catch((error) => {
-  //       console.log("🚀 ~ getScores ~ error:", error);
-  //       // ...
-  //     });
-  //   // const scoresCol = collection(db, "test");
-  //   // const scoreSnapshot = await getDocs(scoresCol);
-  //   // const scoreList = scoreSnapshot.docs.map((doc) => doc.data());
-  //   // console.log("🚀 ~ getScores ~ scoreList:", scoreList);
-  //   // return scoreList;
-  // }
-
-  // getScores();
 
   return (
-    <>
+    <AppContext value={contextValue}>
       <h1>Démineur</h1>
-      {level ? (
+      {name ? (
         <>
-          <GameBoard key={resetKey} level={level} />
-          <div>
-            <button onClick={handleClick}>Changer de niveau</button>
-            <button onClick={handleReset} className="reset">
-              &#10227;
-            </button>
-          </div>
+          <h3>Bienvenue {name} !</h3>
+          {level ? (
+            <GameComponent level={level} key={resetKey} />
+          ) : (
+            <LevelChoice setLevel={setLevel} />
+          )}
         </>
       ) : (
-        <LevelChoice setLevel={setLevel} />
+        <form className="nameInput" onSubmit={onSubmit}>
+          <label htmlFor="name">Nom de joueur</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            maxLength={20}
+            minLength={3}
+            required
+          />
+          <button type="submit">Valider</button>
+        </form>
       )}
-      {/* <button
-        onClick={() =>
-          postData({ name: "test", score: 10, level: "facile" }, setScores)
-        }
-        className="reset"
-      >
-        Post
-      </button> */}
-    </>
+      <TopScores />
+    </AppContext>
   );
 }
 

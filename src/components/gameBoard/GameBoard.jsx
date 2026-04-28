@@ -1,17 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./GameBoard.css";
 import Timer from "../timer/Timer";
 import { dataGameBoard, generateBombs } from "../../utils/gameBoardUtils";
 import Context from "../../contexts/Context";
 import Row from "./row/Row";
 import Result from "./result/Result";
+import AppContext from "../../contexts/AppContext";
 
 /**
  *
- * @param {Object} level
  * @returns
  */
-const GameBoard = ({ level }) => {
+const GameBoard = () => {
+  const { level } = useContext(AppContext);
   const [game, setGame] = useState(dataGameBoard(level));
   const [time, setTime] = useState(0);
   const [started, setStarted] = useState(false);
@@ -147,7 +148,6 @@ const GameBoard = ({ level }) => {
             isPaused={isPaused}
             setIsPaused={setIsPaused}
             marked={marked}
-            level={level}
           />
         ) : (
           <Result time={time} bomb={bomb} />

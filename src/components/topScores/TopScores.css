@@ -1,0 +1,23 @@
+table.score {
+  margin: 1rem auto;
+  border-collapse: collapse;
+  border: 1px solid #242424;
+  box-shadow: none;
+}
+
+table.score td,
+table.score th {
+  border: 1px solid #242424;
+  /* padding: 0.5rem; */
+}
+
+table.score th {
+  background-color: #242424;
+  color: #f1f1f1;
+}
+
+table.score td {
+  background-color: #f1f1f1;
+  color: #242424;
+  padding: 0.5rem;
+}

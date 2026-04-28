@@ -1,6 +1,23 @@
+import { useContext, useEffect } from "react";
+import { postData } from "../../../utils/firebase";
 import "./Result.css";
+import AppContext from "../../../contexts/AppContext";
 
 const Result = ({ time, bomb }) => {
+  const { level, setScores } = useContext(AppContext);
+
+  useEffect(() => {
+    if (!bomb) {
+      let data = {
+        name: localStorage.getItem("name"),
+        time: time,
+        level: level.name,
+      };
+      postData(data, setScores);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="result">
       {bomb ? (

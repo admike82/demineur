@@ -27,6 +27,27 @@ button {
   margin-top: 20px;
 }
 
+label {
+  display: block;
+  font-size: 1.5em;
+  margin-top: 10px;
+}
+
+input {
+  font-size: 1rem;
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.nameInput {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+}
+
 .reset {
   margin-left: 10px;
   background-color: green;

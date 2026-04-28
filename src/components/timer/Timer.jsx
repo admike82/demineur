@@ -1,8 +1,11 @@
 import "./timer.css";
 import pauseSVG from "@assets/pause.svg";
 import mine from "@assets/mine.svg";
+import { useContext } from "react";
+import AppContext from "../../contexts/AppContext";
 
-const Timer = ({ time, isPaused, setIsPaused, marked, level }) => {
+const Timer = ({ time, isPaused, setIsPaused, marked }) => {
+  const { level } = useContext(AppContext);
   const pause = () => {
     setIsPaused((p) => !p);
   };

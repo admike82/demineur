@@ -47,7 +47,12 @@ export const fetchData = async (setScores) => {
   const dbRef = ref(db, dbname);
   const snapshot = await get(dbRef);
   const data = snapshot.val();
-  setScores(data || []);
+  let temp = [];
+
+  for (let key in data) {
+    temp.push({ ...data[key] });
+  }
+  setScores(temp);
 };
 
 export const postData = async (score, setScores) => {
