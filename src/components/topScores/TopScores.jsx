@@ -8,13 +8,14 @@ function TopScores() {
   return _LEVELS.map((level) => {
     let levelScores = scores
       .sort((a, b) => a.time - b.time)
-      .filter((score, i) => score.level === level.name && i < 10);
+      .filter((score) => score.level === level.name)
+      .slice(0, 10);
     return (
       <>
         <table className="score">
           <thead>
             <tr>
-              <th colSpan="2">{level.name}</th>
+              <th colSpan="2">Top 10 - {level.name}</th>
             </tr>
             <tr>
               <th>Nom</th>
