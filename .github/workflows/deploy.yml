@@ -39,6 +39,14 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+        env:
+          VITE_APP_apiKey: ${{ secrets.VITE_APP_APIKEY }}
+          VITE_APP_authDomain: ${{ secrets.VITE_APP_AUTHDOMAIN }}
+          VITE_APP_databaseURL: ${{ secrets.VITE_APP_DATABASEURL }}
+          VITE_APP_projectId: ${{ secrets.VITE_APP_PROJECTID }}
+          VITE_APP_storageBucket: ${{ secrets.VITE_APP_STORAGEBUCKET }}
+          VITE_APP_messagingSenderId: ${{ secrets.VITE_APP_MESSAGINGSENDERID }}
+          VITE_APP_appId: ${{ secrets.VITE_APP_APPID }}
       - name: Setup Pages
         uses: actions/configure-pages@v6
       - name: Upload artifact
