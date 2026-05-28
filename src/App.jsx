@@ -40,7 +40,17 @@ function App() {
       <h1>Démineur</h1>
       {name ? (
         <>
-          <h3>Bienvenue {name} !</h3>
+          <h3 className="welcome">Bienvenue {name} !</h3>
+          <button
+            onClick={() => {
+              StorageService.removeItem("name");
+              window.location.reload();
+            }}
+            className="changePlayerBtn"
+          >
+            Changer de joueur
+          </button>
+
           {level ? (
             <GameComponent level={level} key={resetKey} />
           ) : (

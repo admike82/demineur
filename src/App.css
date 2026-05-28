@@ -54,3 +54,10 @@ input {
   font-size: 1rem;
   padding: 0.6rem;
 }
+
+.changePlayerBtn {
+  font-style: italic;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.5rem;
+  margin: 5px 0;
+}
