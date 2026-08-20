@@ -12,11 +12,15 @@ function App() {
   const [resetKey, setResetKey] = useState(0);
   const [scores, setScores] = useState([]);
   const [name, setName] = useState(StorageService.getItem("name") || null);
+  const [showNameInput, setShowNameInput] = useState(false);
+  const [nameInputValue, setNameInputValue] = useState("");
 
   useEffect(() => {
     login(setScores);
 
-    () => logout();
+    return () => {
+      logout();
+    };
   }, []);
 
   const contextValue = {
@@ -30,9 +34,10 @@ function App() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    let nameInput = document.getElementById("name");
-    StorageService.setItem("name", nameInput.value);
-    setName(nameInput.value);
+    StorageService.setItem("name", nameInputValue);
+    setName(nameInputValue);
+    setShowNameInput(false);
+    setNameInputValue(""); // Reset input
   };
 
   return (
@@ -44,17 +49,33 @@ function App() {
           <button
             onClick={() => {
               StorageService.removeItem("name");
-              window.location.reload();
+              setName(null); // ✅ Reset React state pour forcer un re-render
+              setShowNameInput(true);
             }}
             className="changePlayerBtn"
           >
             Changer de joueur
           </button>
 
-          {level ? (
-            <GameComponent level={level} key={resetKey} />
-          ) : (
-            <LevelChoice setLevel={setLevel} />
+          {level ? <GameComponent /> : (
+            showNameInput ? (
+              <form className="nameInput" onSubmit={onSubmit}>
+                <label htmlFor="name">Nom de joueur</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={nameInputValue}
+                  onChange={(e) => setNameInputValue(e.target.value)}
+                  maxLength={20}
+                  minLength={3}
+                  required
+                />
+                <button type="submit">Valider</button>
+              </form>
+            ) : (
+              <LevelChoice setLevel={setLevel} />
+            )
           )}
         </>
       ) : (
@@ -64,6 +85,8 @@ function App() {
             type="text"
             id="name"
             name="name"
+            value={nameInputValue}
+            onChange={(e) => setNameInputValue(e.target.value)}
             maxLength={20}
             minLength={3}
             required

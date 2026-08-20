@@ -1,13 +1,29 @@
 export const StorageService = {
-  // storage: sessionStorage,
   storage: localStorage,
   getItem: function (key) {
-    return this.storage.getItem(key);
+    try {
+      return this.storage.getItem(key);
+    } catch (e) {
+      console.error('getItem error:', e);
+      return null;
+    }
   },
   setItem: function (key, value) {
-    return this.storage.setItem(key, value);
+    try {
+      this.storage.setItem(key, JSON.stringify(value));
+      return true;
+    } catch (e) {
+      console.error('setItem error:', e);
+      return false;
+    }
   },
   removeItem: function (key) {
-    return this.storage.removeItem(key);
+    try {
+      this.storage.removeItem(key);
+      return true;
+    } catch (e) {
+      console.error('removeItem error:', e);
+      return false;
+    }
   },
 };

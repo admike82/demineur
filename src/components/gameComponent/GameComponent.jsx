@@ -3,7 +3,7 @@ import GameBoard from "../gameBoard/GameBoard";
 import AppContext from "../../contexts/AppContext";
 
 const GameComponent = () => {
-  const { setLevel, setResetKey } = useContext(AppContext);
+  const { setLevel, resetKey, setResetKey } = useContext(AppContext);
   const handleClick = () => {
     setLevel(null);
     setResetKey(0);
@@ -14,7 +14,7 @@ const GameComponent = () => {
   };
   return (
     <>
-      <GameBoard />
+      <GameBoard key={resetKey} />
       <div>
         <button onClick={handleClick}>Changer de niveau</button>
         <button onClick={handleReset} className="reset">

@@ -88,6 +88,7 @@ const Cell = ({ rowIndex, index }) => {
       className={className}
       onClick={(e) => handleClick(e, rowId, cellId)}
       onContextMenu={(e) => handleContextMenu(e, rowId, cellId)}
+      role="gridcell"
     >
       {value}
     </td>

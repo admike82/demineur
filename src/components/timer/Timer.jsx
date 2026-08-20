@@ -20,7 +20,7 @@ const Timer = ({ time, isPaused, setIsPaused, marked }) => {
           {("0" + Math.floor((time / 1000) % 60)).slice(-2)}.
         </div>
         <div className="digits mili-sec">
-          {("0" + ((time / 10) % 100)).slice(-2)}
+          {Math.floor((time % 1000) / 10).toString().padStart(2, "0")}
         </div>
         <div
           className={isPaused ? "digits pause" : "digits pause actif"}

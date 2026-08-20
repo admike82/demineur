@@ -16,13 +16,13 @@ const LevelChoice = ({ setLevel }) => {
       <h2>Choix du niveau</h2>
       <div className="cardContainer">
         {_LEVELS.map((level) => (
-          <div
-            className="card"
-            onClick={() => handleClick({ ...level, key: new Date() })}
-            key={level.name}
-          >
-            {level.name}
-          </div>
+<div
+  className="card"
+  onClick={() => handleClick(level)}
+  key={`${level.name}-${Date.now()}`}
+>
+  {level.name}
+</div>
         ))}
       </div>
     </>

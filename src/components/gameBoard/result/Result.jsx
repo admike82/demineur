@@ -7,7 +7,7 @@ const Result = ({ time, bomb }) => {
   const { level, setScores } = useContext(AppContext);
 
   useEffect(() => {
-    if (!bomb) {
+    if (!bomb && time > 0) {
       let data = {
         name: localStorage.getItem("name"),
         time: time,
@@ -15,8 +15,7 @@ const Result = ({ time, bomb }) => {
       };
       postData(data, setScores);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [bomb, time, level.name]);
 
   return (
     <div className="result">
@@ -28,7 +27,7 @@ const Result = ({ time, bomb }) => {
           <span>{("0" + Math.floor(time / 60000)).slice(-2)}:</span>
           <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}.</span>
           <span className="mili-sec">
-            {("0" + ((time / 10) % 100)).slice(-2)}
+            {Math.floor((time % 1000) / 10).toString().padStart(2, "0")}
           </span>
         </div>
       )}

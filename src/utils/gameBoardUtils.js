@@ -7,26 +7,6 @@ export const dataGameBoard = (level) => {
     }
     grid.push(line);
   }
-  // for (let i = 1; i <= level.bombs; i++) {
-  //   let x = Math.floor(Math.random() * (level.columns - 1) + 1);
-  //   let y = Math.floor(Math.random() * (level.lines - 1) + 1);
-  //   while (grid[y][x] === -1) {
-  //     x = Math.floor(Math.random() * (level.columns - 1) + 1);
-  //     y = Math.floor(Math.random() * (level.lines - 1) + 1);
-  //   }
-  //   grid[y][x] = -1;
-
-  //   for (let j = x - 1; j <= x + 1; j++) {
-  //     if (j !== -1 && j !== level.columns) {
-  //       for (let k = y - 1; k <= y + 1; k++) {
-  //         if (k !== -1 && k !== level.lines && grid[k][j] !== -1) {
-  //           grid[k][j]++;
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-
   return grid;
 };
 
@@ -39,8 +19,8 @@ export const generateBombs = (level, grid, start) => {
     }
   }
   for (let i = 1; i <= level.bombs; i++) {
-    let x = Math.floor(Math.random() * (level.columns - 1) + 1);
-    let y = Math.floor(Math.random() * (level.lines - 1) + 1);
+    let x = Math.floor(Math.random() * level.columns);
+    let y = Math.floor(Math.random() * level.lines);
     while (
       grid[y][x] === -1 ||
       temp.find((cell) => cell.x === x && cell.y === y)
@@ -51,9 +31,9 @@ export const generateBombs = (level, grid, start) => {
     grid[y][x] = -1;
 
     for (let j = x - 1; j <= x + 1; j++) {
-      if (j !== -1 && j !== level.columns) {
+      if (j >= 0 && j < level.columns) {
         for (let k = y - 1; k <= y + 1; k++) {
-          if (k !== -1 && k !== level.lines && grid[k][j] !== -1) {
+          if (k >= 0 && k < level.lines && grid[k][j] !== -1) {
             grid[k][j]++;
           }
         }

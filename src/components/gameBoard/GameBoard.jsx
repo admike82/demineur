@@ -36,8 +36,6 @@ const GameBoard = () => {
       interval = setInterval(() => {
         setTime((time) => time + 10);
       }, 10);
-    } else {
-      clearInterval(interval);
     }
     return () => {
       clearInterval(interval);

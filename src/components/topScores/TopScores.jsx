@@ -11,39 +11,35 @@ function TopScores() {
       .filter((score) => score.level === level.name)
       .slice(0, 10);
     return (
-      <>
-        <table className="score">
-          <thead>
-            <tr>
-              <th colSpan="2">Top 10 - {level.name}</th>
-            </tr>
-            <tr>
-              <th>Nom</th>
-              <th>Temps</th>
-            </tr>
-          </thead>
-          <tbody>
-            {levelScores.map((score, index) => (
-              <tr key={index}>
-                <td>
-                  {index + 1}. {score.name}
-                </td>
-                <td>
-                  <span>
-                    {("0" + Math.floor(score.time / 60000)).slice(-2)}:
-                  </span>
-                  <span>
-                    {("0" + Math.floor((score.time / 1000) % 60)).slice(-2)}.
-                  </span>
+      <table key={level.name} className="score">
+        <thead>
+          <tr>
+            <th colSpan="2">Top 10 - {level.name}</th>
+          </tr>
+          <tr>
+            <th>Nom</th>
+            <th>Temps</th>
+          </tr>
+        </thead>
+        <tbody>
+          {levelScores.map((score, index) => (
+            <tr key={`${score.name}-${score.time}`}>
+              <td>
+                {index + 1}. {score.name}
+              </td>
+              <td>
+                <span>{("0" + Math.floor(score.time / 60000)).slice(-2)}:</span>
+                <span>
+                  {("0" + Math.floor((score.time / 1000) % 60)).slice(-2)}.
+                </span>
                   <span className="mili-sec">
-                    {("0" + ((score.time / 10) % 100)).slice(-2)}
+                    {Math.floor((score.time % 1000) / 10).toString().padStart(2, "0")}
                   </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     );
   });
 }
